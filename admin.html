@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Artam</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
+</head>
+<body>
+    <nav class="navbar">
+        <a class="logo" href="index.html">
+            <span class="logo-letter">
+                <i class="fa-solid fa-book fa-fade" style="color: #ffd43b"></i>Artam
+            </span>
+        </a>
+        <div class="nav-actions">
+            <a class="cart-link" href="cart.html">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span>Cart</span>
+                <div class="badge" id="cart-count">0</div>
+            </a>
+
+            <a href="admin.html">
+                <i class="fa-solid fa-user-gear"></i>
+                <span>Admin</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="admin-container">
+        <form id="add-form" class="form-row">
+            <input type="text" id="name" placeholder="Nume carte" required />
+            <input type="text" id="author" placeholder="Autor" required />
+            <input type="number" id="price" placeholder="Pret (ex: 30)" step="0.01" required />
+            <input type="text" id="category" placeholder="Categorie" required />
+            <input type="text" id="imageURL" placeholder="URL imagine" />
+            <button id="add-or-edit-btn">Adauga</button>
+        </form>
+
+        <div id="table-container">
+            <table id="products-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Imagine</th>
+                        <th>Nume carte</th>
+                        <th>Autor</th>
+                        <th>Pret</th>
+                        <th>Actiuni</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

@@ -1,55 +1,64 @@
+window.addEventListener('DOMContentLoaded', displayProducts);
+
 const URL = 'https://68fe42d77c700772bb134d84.mockapi.io/books';
 
-const getButton = document.getElementById('get');
-const postButton = document.getElementById('post');
-const booksContainer = document.getElementById('books');
-
-const newName = document.getElementById("name");
-const newAuthor = document.getElementById("author");
-const newCategory = document.getElementById("category");
-const newPrice = document.getElementById("price");
-
-getButton.addEventListener('click', displayBooks);
-
-function displayBooks() {
+function displayProducts() {
     fetch(URL)
-        .then(response => response.json())
-        .then(books => {
-            booksContainer.innerHTML = books.map(book => `
-                <div class="book-card">
-                    <h3>${book.name}</h3>
-                    <p><strong>Author:</strong> ${book.author}</p>
-                    <p><strong>Category:</strong> ${book.category}</p>
-                    <p><strong>Price:</strong> ${book.price} RON</p>
-                </div>
-            `).join('');
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Network error!');
+            }
+            return response.json();
         })
-        .catch(err => console.error(err));
-}
+        .then((books) => {
+            document.querySelector('.products-container').innerHTML = books
+                .map(
+                    (book) => `
+            <div class="product-card">
+                <img
+                    src="${book.imageURL || 'https://via.placeholder.com/150'}"
+                    alt="Book image"
+                />
+                <div class="product-info">
+                    <h3>${book.name}</h3>
+                    <div class="author">Autor: ${book.author}</div>
+                    <div class="price">${book.price} LEI</div>
+                    <div class="buttons">
+                        <a href="details.html?id=${book.id}" class="details-btn">Detalii</a>
+                        <button data-id=${book.id} class="cart-btn">Adauga in Cos</button>
+                    </div>
+                </div>
+            </div>
+            `
+                )
+                .join('');
 
+            const addToCartButtons = document.querySelectorAll('.cart-btn');
+            addToCartButtons.forEach((button) => {
+                button.addEventListener('click', (e) => {
+                    const productId = e.target.dataset.id;
+                    const book = books.find((b) => b.id === productId);
 
-postButton.addEventListener('click', addBook);
+                    let cart = JSON.parse(localStorage.getItem('cart')) || {};
 
-function addBook() {
-    const Book = {
-        name: newName.value,
-        author: newAuthor.value,
-        category: newCategory.value,
-        price: newPrice.value
-    };
+                    if (cart[productId]) {
+                        cart[productId].quantity++;
+                    } else {
+                        cart[productId] = {
+                            quantity: 1,
+                            price: book.price,
+                            image: book.imageURL,
+                            name: book.name,
+                            author: book.author,
+                        };
+                    }
 
-    fetch(URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(Book)
-    })
-    .then(response => response.json())
-    .then(data => {
-        displayBooks(); 
-        newName.value = '';
-        newAuthor.value = '';
-        newCategory.value = '';
-        newPrice.value = '';
-    })
-    .catch(err => console.error(err));
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                });
+            });
+        })
+        .catch((error) => {
+            console.error(error);
+            document.querySelector('.products-container').innerHTML = '<p>Eroare la incarcare carti.</p>';
+        });
 }
