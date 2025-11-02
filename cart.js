@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', showCart);
 
 const cartContainer = document.querySelector('.cart-container');
 const totalPriceContainer = document.querySelector('.total-price-container');
-const cartCountContainer = document.querySelector('#cart-count');
+
 let cart;
 
 function showCart() {
@@ -17,17 +17,17 @@ function showCart() {
         const book = cart[id];
         cartContainer.innerHTML += `
         <div class="card-cart">
-            <img width="50px" src="${book.image || 'https://via.placeholder.com/50'}" alt="Book image">
-            <span>${book.name}</span>
-            <span>Autor: ${book.author}</span>
-            <span>Pret unitar: ${book.price} lei</span>
-            <div>
+            <img src="${book.image || 'https://via.placeholder.com/50'}" alt="Book image">
+            <span class="cart-item-name">${book.name}</span>
+            <span class="cart-item-author">Autor: ${book.author}</span>
+            <span class="cart-item-price">Pret unitar: ${book.price} lei</span>
+            <div class="cart-item-quantity">
                 <button class="decrease" data-id="${id}">-</button>
                 <span>${book.quantity}</span>
                 <button class="increase" data-id="${id}">+</button>
             </div>
-            <span>Total: ${(book.price * book.quantity).toFixed(2)} lei</span>
-            <button data-id="${id}" class="delete">Sterge</button>
+            <span class="cart-item-total">Total: ${(book.price * book.quantity).toFixed(2)} lei</span>
+            <button data-id="${id}" class="delete"><i class="fa-solid fa-trash"></i> Sterge</button>
         </div>
         `;
         total += book.price * book.quantity;
@@ -40,6 +40,7 @@ function showCart() {
             : `Total: ${total.toFixed(2)} lei`;
 
     cartCountContainer.innerHTML = totalNumberOfProducts;
+    if (typeof updateCartCount === 'function') updateCartCount();
 }
 
 cartContainer.addEventListener('click', (e) => {
@@ -58,5 +59,7 @@ cartContainer.addEventListener('click', (e) => {
     }
 
     localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+
     showCart();
 });

@@ -51,7 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 localStorage.setItem('cart', JSON.stringify(cart));
-                // optional: notificare scurtă
+                updateCartCount();
+                
             });
         })
         .catch(err => {

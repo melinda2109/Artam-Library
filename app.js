@@ -54,6 +54,8 @@ function displayProducts() {
                     }
 
                     localStorage.setItem('cart', JSON.stringify(cart));
+                    updateCartCount();
+                    
                 });
             });
         })
