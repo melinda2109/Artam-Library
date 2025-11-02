@@ -12,30 +12,59 @@
         crossorigin="anonymous"
         referrerpolicy="no-referrer"
     />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 </head>
 <body>
     <nav class="navbar">
         <a class="logo" href="index.html">
-            <span class="logo-letter">
-                <i class="fa-solid fa-book fa-fade" style="color: #ffd43b"></i>Artam
+            <span class="material-symbols-outlined" style="color: #ffd43b; vertical-align: middle;">
+                menu_book
             </span>
+            Artam
         </a>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Cauta carte, autor..." />
+        </div>
         <div class="nav-actions">
             <a class="cart-link" href="cart.html">
-                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="material-symbols-outlined" style="vertical-align: middle;">
+                    shopping_cart
+                </span>
                 <span>Cos</span>
                 <div class="badge" id="cart-count">0</div>
             </a>
-
             <a href="admin.html">
-                <i class="fa-solid fa-user-gear"></i>
+                <span class="material-symbols-outlined" style="vertical-align: middle;">
+                    manage_accounts
+                </span>
                 <span>Admin</span>
             </a>
         </div>
     </nav>
 
+    <!-- inserted: filters / sort / results / products container required by app.js -->
+    <section class="filter-section">
+        <div id="category-filters"></div>
+
+        <select id="sort-select" class="sort-select">
+            <option value="newest">Cele mai noi</option>
+            <option value="price-low">Pret: mic → mare</option>
+            <option value="price-high">Pret: mare → mic</option>
+            <option value="name">Nume</option>
+        </select>
+    </section>
+
+    <div class="products-header">
+        <h2>Carti</h2>
+        <div id="results-count" class="results-count">0 rezultate</div>
+    </div>
+
     <div class="products-container"></div>
 
+    <!-- toast container used by showToast -->
+    <div id="toast-container"></div>
+    
+    <!-- existing scripts / rest of file -->
     <script src="cart-count.js"></script>
     <script src="app.js"></script>
 </body>

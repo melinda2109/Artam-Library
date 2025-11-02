@@ -12,31 +12,40 @@
         crossorigin="anonymous"
         referrerpolicy="no-referrer"
     />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 </head>
 <body>
     <nav class="navbar">
         <a class="logo" href="index.html">
             <span class="logo-letter">
-                <i class="fa-solid fa-book fa-fade" style="color: #ffd43b"></i>Artam
+                <span class="material-symbols-outlined" style="color: #ffd43b; vertical-align: middle;">
+                    menu_book
+                </span>
+                Artam
             </span>
         </a>
         <div class="nav-actions">
             <a class="cart-link" href="cart.html">
-                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="material-symbols-outlined" style="vertical-align: middle;">
+                    shopping_cart
+                </span>
                 <span>Cos</span>
                 <div class="badge" id="cart-count">0</div>
             </a>
-
             <a href="admin.html">
-                <i class="fa-solid fa-user-gear"></i>
+                <span class="material-symbols-outlined" style="vertical-align: middle;">
+                    manage_accounts
+                </span>
                 <span>Admin</span>
             </a>
         </div>
     </nav>
 
-    <div class="cart-container"></div>
-    <div class="total-price-container"></div>
+    <main class="cart-wrapper">
+        <div class="cart-container"></div>
+    </main>
 
+    <div class="total-price-container"></div>
 
     <script src="cart-count.js"></script>
     <script src="cart.js"></script>
